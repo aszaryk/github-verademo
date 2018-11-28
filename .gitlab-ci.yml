@@ -43,7 +43,7 @@ veracode_static_policy:
         refs:
             - master
     script:
-        - java -jar /veracode/veracode-wrapper.jar -vid $VERACODE_ID -vkey $VERACODE_KEY
+        - java -jar --add-modules java.se.ee /veracode/veracode-wrapper.jar -vid $VERACODE_ID -vkey $VERACODE_KEY
           -action UploadAndScan -appname "$CI_PROJECT_NAME" -createprofile false
           -filepath target/verademo.war
           -version "commit ${CI_COMMIT_SHA:0:8} pipeline $CI_PIPELINE_ID job $CI_JOB_ID"
