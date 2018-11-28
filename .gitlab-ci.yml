@@ -1,46 +1,37 @@
----
-image: docker-ro.laputa.veracode.io/agora/buildbox:centos7-m1-java8-latest
+variables:
+    MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+    MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version"
 
 stages:
     - build
-    - scan
+    - security
 
 maven:
+    image: maven:3.6.0-jdk-8
     stage: build
+    cache:
+        paths:
+            - .m2/repository
+        key: "$CI_JOB_NAME"
     script:
-        - yum -y install maven
-        - mvn compile package
+        - mvn $MAVEN_CLI_OPTS clean package
     artifacts:
         paths:
-            - target/verademo.war
+            - target/
 
-development-upload-for-sast:
-    stage: scan
-    only:
-        - development
+veracode_greenlight:
+    image: openjdk:8-jre
+    stage: security
+    before_script:
+        - curl -sS -O https://downloads.veracode.com/securityscan/gl-scanner-java-LATEST.zip
+        - unzip gl-scanner-java-LATEST.zip gl-scanner-java.jar
     script:
-        - java -jar $HOME/helpers/VeracodeJavaAPI.jar -vid ${TEAM_ANALYSISCENTER_ID} -vkey ${TEAM_ANALYSISCENTER_KEY}
-          -action UploadAndScan -appname "Verademo" -createprofile false -autoscan true -sandboxname "gitlab-development"
-          -filepath ./target/verademo.war -version "Job ${CI_JOB_ID} in pipeline ${CI_PIPELINE_ID}"
-    allow_failure: true
-    
-release-upload-for-sast:
-    stage: scan
-    only:
-        - release
-    script:
-        - java -jar $HOME/helpers/VeracodeJavaAPI.jar -vid ${TEAM_ANALYSISCENTER_ID} -vkey ${TEAM_ANALYSISCENTER_KEY}
-          -action UploadAndScan -appname "Verademo" -createprofile false -autoscan true -sandboxname "gitlab-release"
-          -filepath ./target/verademo.war -version "Job ${CI_JOB_ID} in pipeline ${CI_PIPELINE_ID}"
-    allow_failure: true
-    
-policy-upload-for-sast:
-    stage: scan
-    only:
-        - schedules
-        - master
-    script:
-        - java -jar $HOME/helpers/VeracodeJavaAPI.jar -vid ${TEAM_ANALYSISCENTER_ID} -vkey ${TEAM_ANALYSISCENTER_KEY}
-          -action UploadAndScan -appname "Verademo" -createprofile false -autoscan true
-          -filepath ./target/verademo.war -version "Job ${CI_JOB_ID} in pipeline ${CI_PIPELINE_ID}"
-          -scantimeout 15
+        - java -jar gl-scanner-java.jar -i $VERACODE_ID -k $VERACODE_KEY
+          --source_dir src/main/java/ --build_dir target/classes/
+          --project_name "$CI_PROJECT_NAME" --project_ref $CI_COMMIT_REF_NAME --project_url $CI_PROJECT_URL
+          --issue_details=true --summary_output=true
+    artifacts:
+        name: "$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHA-greenlight_results"
+        paths:
+            - results.json
+            - results.txt
