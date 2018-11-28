@@ -35,3 +35,15 @@ veracode_greenlight:
         paths:
             - results.json
             - results.txt
+
+veracode_static_policy:
+    image: ctcampbelldocker/veracode-ci-examples
+    stage: security
+    only:
+        refs:
+            - master
+    script:
+        - java -jar /veracode/veracode-wrapper.jar -vid $VERACODE_ID -vkey $VERACODE_KEY
+          -action UploadAndScan -appname "$CI_PROJECT_NAME" -createprofile false
+          -filepath target/verademo.war
+          -version "commit ${CI_COMMIT_SHA:0:8} pipeline $CI_PIPELINE_ID job $CI_JOB_ID"
