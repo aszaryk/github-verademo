@@ -18,6 +18,8 @@ pipeline {
             }
         }
 
+        stage('--Security Tests--') {
+            parallel {
                         stage('Agent-SCA') {
                             steps {
                                  withCredentials([string(credentialsId: 'SRCCLR_API_TOKEN', variable: 'SRCCLR_API_TOKEN')]) {
@@ -33,7 +35,7 @@ pipeline {
                                    sh '''
                                       curl -s -O https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
                                       unzip -o pipeline-scan-LATEST.zip pipeline-scan.jar
-                                      java -jar pipeline-scan.jar -vid $veracode_id -vkey $veracode_key -f ./target/verademo.war --project_name "GitHub Verademo"
+                                      java -jar pipeline-scan.jar -vid $veracode_id -vkey $veracode_key -f ./target/verademo.war --fail_on_severity="Very High, High" --project_name "GitHub Verademo"
                                    '''
                                 }
                             }
@@ -46,5 +48,9 @@ pipeline {
                             }
                         }
 
+
+
+            }
+        }
     }
 }
