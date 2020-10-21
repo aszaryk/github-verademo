@@ -18,8 +18,6 @@ pipeline {
             }
         }
 
-        stage('--Security Tests--') {
-            parallel {
                         stage('Agent-SCA') {
                             steps {
                                  withCredentials([string(credentialsId: 'SRCCLR_API_TOKEN', variable: 'SRCCLR_API_TOKEN')]) {
@@ -48,9 +46,5 @@ pipeline {
                             }
                         }
 
-
-
-            }
-        }
     }
 }
