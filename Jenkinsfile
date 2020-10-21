@@ -31,9 +31,9 @@ pipeline {
                         }
                         stage('Veracode Pipeline'){
                             steps {
-                                - sh 'curl -O https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip'
-                                - sh 'unzip pipeline-scan-LATEST.zip pipeline-scan.jar'
-                                - sh 'java -jar pipeline-scan.jar \
+                                - sh '''curl -O https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip'''
+                                - sh '''unzip pipeline-scan-LATEST.zip pipeline-scan.jar'''
+                                - sh ''''java -jar pipeline-scan.jar \
                                 --veracode_api_id "${veracode_id}" \
                                 --veracode_api_key "${veracode_key}" \
                                 --file "build/libs/sample.jar" \
@@ -43,7 +43,7 @@ pipeline {
                                 --timeout "${CI_TIMEOUT}" \
                                 --project_name "GitHub VeraDemo" \
                                 --project_url "${env.GIT_URL}" \
-                                --project_ref "${env.GIT_COMMIT}"' \
+                                --project_ref "${env.GIT_COMMIT}"''' \
                             }
                         }
                         stage('Veracode Policy Scan') {
