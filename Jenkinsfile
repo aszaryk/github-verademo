@@ -30,6 +30,9 @@ pipeline {
         stage ('Veracode Static Scans') {
             parallel {
             stage('Veracode Pipeline') {
+                when {
+                    branch 'feature-dev'
+                }
                     steps {
                         withCredentials([usernamePassword(credentialsId: 'veracode-credentials', passwordVariable: 'veracode_key', usernameVariable: 'veracode_id')]) {
                             sh '''
