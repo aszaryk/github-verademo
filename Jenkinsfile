@@ -41,7 +41,7 @@ pipeline {
                         stage('Veracode Policy Scan') {
                             steps {
                                 withCredentials([usernamePassword(credentialsId: 'veracode-credentials',passwordVariable: 'veracode_key', usernameVariable: 'veracode_id')]){
-                                     veracode applicationName: 'VeraDemo', createSandbox: true, criticality: 'Medium', fileNamePattern: '', replacementPattern: '', sandboxName: 'Integration Pipeline', scanExcludesPattern: '', scanIncludesPattern: '', scanName: 'pipeline-$buildnumber', uploadExcludesPattern: '', uploadIncludesPattern: '**/**.war', useIDkey: true, vid: veracode_id, vkey: veracode_key, vpassword: '', vuser: ''
+                                     veracode applicationName: 'VeraDemo', createSandbox: true, criticality: 'Medium', fileNamePattern: '', replacementPattern: '', sandboxName: 'Integration Pipeline', scanExcludesPattern: '', scanIncludesPattern: '', scanName: 'pipeline-$buildnumber', uploadExcludesPattern: '', uploadIncludesPattern: '**/**.war', waitForScan: true, timeout: 60, useIDkey: true, vid: veracode_id, vkey: veracode_key, vpassword: '', vuser: ''
                                      }
                             }
                         }
