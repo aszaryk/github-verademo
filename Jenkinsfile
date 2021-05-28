@@ -1,9 +1,7 @@
 pipeline {
     agent any
 
-    environment {
-        //def mvnHome = tool 'Maven'
-    }
+
 
     stages {
 
