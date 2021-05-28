@@ -22,7 +22,8 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'SRCCLR_API_TOKEN', variable: 'SRCCLR_API_TOKEN')]) {
                     bat '''
-                        curl -sSL https://download.sourceclear.com/ci.sh | bat -s -- scan --update-advisor
+                        call curl -sSL https://download.sourceclear.com/ci.sh 
+                        call -s -- scan --update-advisor
                     '''
                 }
             }
