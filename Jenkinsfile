@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        def mvnHome = tool 'Maven'
+        //def mvnHome = tool 'Maven'
     }
 
     stages {
@@ -14,16 +14,15 @@ pipeline {
         }
         stage('----Build----') {
             steps {
-                bat "mvn clean package"
+                sh "mvn clean package"
             }
         }
 
         stage('Agent-SCA') {
             steps {
                 withCredentials([string(credentialsId: 'SRCCLR_API_TOKEN', variable: 'SRCCLR_API_TOKEN')]) {
-                    bat '''
-                        call curl -sSL https://download.sourceclear.com/ci.sh 
-                        call -s -- scan --update-advisor
+                    sh '''
+                        curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan --update-advisor
                     '''
                 }
             }
@@ -36,7 +35,7 @@ pipeline {
                 }
                     steps {
                         withCredentials([usernamePassword(credentialsId: 'veracode-credentials', passwordVariable: 'veracode_key', usernameVariable: 'veracode_id')]) {
-                            bat '''
+                            sh '''
                               curl -s -O https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
                               unzip -o pipeline-scan-LATEST.zip pipeline-scan.jar
                               java -jar pipeline-scan.jar -vid $veracode_id -vkey $veracode_key -f ./target/verademo.war --project_name "GitHub Verademo"
@@ -47,7 +46,7 @@ pipeline {
                 stage('Veracode Policy Scan') {
                     steps {
                         withCredentials([usernamePassword(credentialsId: 'veracode-credentials', passwordVariable: 'veracode_key', usernameVariable: 'veracode_id')]) {
-                            veracode applicationName: 'VeraDemo', createSandbox: true, criticality: 'Medium', fileNamePattern: '', replacementPattern: '', sandboxName: 'Integration Pipeline', scanExcludesPattern: '', scanIncludesPattern: '', scanName: 'pipeline-$buildnumber', uploadExcludesPattern: '', uploadIncludesPattern: '**/**.war', vid: veracode_id, vkey: veracode_key
+                            veracode applicationName: 'VeraDemo', createSandbox: true, criticality: 'Medium', fileNamePattern: '', replacementPattern: '', sandboxName: 'Integration Pipeline', scanExcludesPattern: '', scanIncludesPattern: '', scanName: 'pipeline-$buildnumber', uploadExcludesPattern: '', uploadIncludesPattern: '**/**.war', useIDkey: true, vid: veracode_id, vkey: veracode_key, vpassword: '', vuser: ''
                         }
                     }
                 }
