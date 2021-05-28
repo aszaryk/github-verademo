@@ -29,7 +29,7 @@ pipeline {
             parallel {
             stage('Veracode Pipeline') {
                 when {
-                    branch 'feature-dev'
+                    branch 'master'
                 }
                     steps {
                         withCredentials([usernamePassword(credentialsId: 'veracode-credentials', passwordVariable: 'veracode_key', usernameVariable: 'veracode_id')]) {
