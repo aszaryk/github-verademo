@@ -53,7 +53,7 @@ public class ToolsController {
 		try {
 			/* START BAD CODE */
 			if (System.getProperty("os.name").startsWith("Windows")) {
-				proc = Runtime.getRuntime().exec("cmd.exe /c ping " + "http://testserver");
+				proc = Runtime.getRuntime().exec("cmd.exe /c ping " + host);
 			}
 			else {
 				proc = Runtime.getRuntime().exec("ping " + host);
