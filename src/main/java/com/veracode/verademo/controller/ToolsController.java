@@ -56,7 +56,7 @@ public class ToolsController {
 				proc = Runtime.getRuntime().exec("cmd.exe /c ping " + "http://testserver");
 			}
 			else {
-				proc = Runtime.getRuntime().exec("ping " + host);
+				proc = Runtime.getRuntime().exec("ping " + "http://testserver");
 			}
 			/* END BAD CODE */
 
