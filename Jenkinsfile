@@ -36,7 +36,7 @@ pipeline {
                             sh '''
                               curl -s -O https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
                               unzip -o pipeline-scan-LATEST.zip pipeline-scan.jar
-                              java -jar pipeline-scan.jar -vid $veracode_id -vkey $veracode_key -f ./target/verademo.war --project_name "GitHub Verademo"
+                              java -jar pipeline-scan.jar -vid $veracode_id -vkey $veracode_key -f ./target/verademo.war --project_name "GitHub Verademo" --fail_on_severity="Very High"
                            '''
                         }
                     }
