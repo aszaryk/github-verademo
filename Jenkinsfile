@@ -24,6 +24,7 @@ pipeline {
                     sh '''
                         curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan --update-advisor
                     '''
+                    sh 'exit 0'
                 }
             }
         }
