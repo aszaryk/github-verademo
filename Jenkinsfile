@@ -20,15 +20,6 @@ pipeline {
 
         stage ('Veracode Security Scans') {
             parallel {
-            stage('Agent-SCA') {
-                steps {
-                    withCredentials([string(credentialsId: 'SRCCLR_API_TOKEN', variable: 'SRCCLR_API_TOKEN')]) {
-                        sh '''
-                            curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan --update-advisor
-                        '''
-                    }
-                }
-            }
             stage('Veracode Pipeline') {
                 steps {
                     withCredentials([usernamePassword(credentialsId: 'veracode-credentials', passwordVariable: 'veracode_key', usernameVariable: 'veracode_id')]) {
@@ -48,6 +39,15 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'veracode-credentials', passwordVariable: 'veracode_key', usernameVariable: 'veracode_id')]) {
                         veracode applicationName: 'VeraDemo', createSandbox: true, criticality: 'Medium', fileNamePattern: '', replacementPattern: '', sandboxName: 'Integration Pipeline', scanExcludesPattern: '', scanIncludesPattern: '', scanName: 'pipeline-$buildnumber', uploadExcludesPattern: '', uploadIncludesPattern: '**/**.war', vid: veracode_id, vkey: veracode_key
                     }
+                }
+            }
+            }
+        stage('Agent-SCA') {
+            steps {
+                withCredentials([string(credentialsId: 'SRCCLR_API_TOKEN', variable: 'SRCCLR_API_TOKEN')]) {
+                    sh '''
+                        curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan --update-advisor
+                    '''
                 }
             }
             }
