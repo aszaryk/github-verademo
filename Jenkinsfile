@@ -18,16 +18,15 @@ pipeline {
             }
         }
 
-        stage('Agent-SCA') {
+        /** stage('Agent-SCA') {
             steps {
                 withCredentials([string(credentialsId: 'SRCCLR_API_TOKEN', variable: 'SRCCLR_API_TOKEN')]) {
                     sh '''
                         curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan --update-advisor
                     '''
-                    sh 'exit 0'
                 }
             }
-        }
+        }**/
         stage ('Veracode Static Scans') {
             parallel {
             stage('Veracode Pipeline') {
