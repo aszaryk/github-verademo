@@ -17,10 +17,21 @@ pipeline {
                 sh "${mvnHome}/bin/mvn clean package"
             }
         }
-
+        stage('Agent-SCA') {
+            steps {
+                withCredentials([string(credentialsId: 'SRCCLR_API_TOKEN', variable: 'SRCCLR_API_TOKEN')]) {
+                    sh '''
+                        curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan --update-advisor
+                    '''
+                }
+            }
+            }
         stage ('Veracode Security Scans') {
             parallel {
             stage('Veracode Pipeline') {
+                when {
+                    branch 'feature'
+                    }
                 steps {
                     withCredentials([usernamePassword(credentialsId: 'veracode-credentials', passwordVariable: 'veracode_key', usernameVariable: 'veracode_id')]) {
                         sh '''
@@ -43,15 +54,7 @@ pipeline {
             }
             }
         }
-        stage('Agent-SCA') {
-            steps {
-                withCredentials([string(credentialsId: 'SRCCLR_API_TOKEN', variable: 'SRCCLR_API_TOKEN')]) {
-                    sh '''
-                        curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- scan --update-advisor
-                    '''
-                }
-            }
-            }
+
 
     }
 }
