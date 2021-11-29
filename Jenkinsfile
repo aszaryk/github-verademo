@@ -43,9 +43,7 @@ pipeline {
                 }
             }
             stage('Veracode Policy Scan') {
-                when {
-                      branch 'master'
-                    }
+
                 steps {
                     withCredentials([usernamePassword(credentialsId: 'veracode-credentials', passwordVariable: 'veracode_key', usernameVariable: 'veracode_id')]) {
                         veracode applicationName: 'VeraDemo', createSandbox: true, criticality: 'Medium', fileNamePattern: '', replacementPattern: '', sandboxName: 'Integration Pipeline', scanExcludesPattern: '', scanIncludesPattern: '', scanName: 'pipeline-$buildnumber', uploadExcludesPattern: '', uploadIncludesPattern: '**/**.war', vid: veracode_id, vkey: veracode_key
