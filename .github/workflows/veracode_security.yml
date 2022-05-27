@@ -11,14 +11,14 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Build with Maven # Compiling the .war binary from the checked out repo source code to upload to the scanner in the next step
-        run: mvn -B package --file app/pom.xml
+        run: mvn -B package --file pom.xml
           
       - name: Veracode Upload And Scan
         uses: veracode/veracode-uploadandscan-action@0.2.1
         with:
           appname: 'VeraDemo'
           createprofile: false
-          filepath: 'app/target/verademo.war'
+          filepath: 'target/verademo.war'
           vid: '${{ secrets.VERACODE_API_ID }}'
           vkey: '${{ secrets.VERACODE_API_KEY }}'
           createsandbox: 'true'
