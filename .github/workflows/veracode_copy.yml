@@ -45,7 +45,7 @@ jobs:
 
 # This step will import the flaws from the step above
   import-issues:
-    needs: scan
+    needs: pipeline_scan
     runs-on: ubuntu-latest
     steps:
       - name: get scan results
