@@ -40,4 +40,4 @@ jobs:
       - name: import flaws as issues
         uses: veracode/veracode-flaws-to-issues@v2.1.10
         with:
-          scan-results-json: 'filtered_results.json'
+          scan-results-json: 'results.json'
