@@ -35,7 +35,7 @@ jobs:
       - name: get scan results
         uses: actions/download-artifact@v3
         with:
-          name: filtered-results
+          name: Veracode Pipeline-Scan Results
 
       - name: import flaws as issues
         uses: veracode/veracode-flaws-to-issues@v2.1.10
