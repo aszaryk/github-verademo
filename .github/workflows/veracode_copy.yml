@@ -24,7 +24,7 @@ jobs:
         with:
           vid: ${{ secrets.VID }}
           vkey: ${{ secrets.VKEY }}
-          file: "app/target/verademo.war" 
+          file: app/target/verademo.war 
           fail_build: false
 
 # This step will import the flaws from the step above
