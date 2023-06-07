@@ -26,10 +26,11 @@ jobs:
           vkey: '${{ secrets.VERACODE_API_KEY }}'
           file: target/verademo.war 
           fail_build: false
-          token: ${{ github.token }}
 
 # This step will import the flaws from the step above
   import-issues:
+    permissions:
+      issues: write
     needs: build-scan
     runs-on: ubuntu-latest
     steps:
