@@ -8,7 +8,7 @@ permissions:
   contents: read
 # This first step is assumed to exist already in your Workflow
 jobs:
-  build:
+  build-scan:
 
     runs-on: ubuntu-latest
 
@@ -18,34 +18,18 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
-      - uses: actions/upload-artifact@v2 # Copy files from repository to docker container so the next uploadandscan action can access them.
+      - name: pipeline-scan action step
+        id: pipeline-scan
+        uses: veracode/Veracode-pipeline-scan-action@v1.0.3
         with:
-          path: target/*.war # Wildcards can be used to filter the files copied into the container. See: https://github.com/actions/upload-artifact
-
-  pipeline_scan:
-      needs: build
-      runs-on: ubuntu-latest
-      name: pipeline scan
-      steps:
-        - name: checkout repo
-          uses: actions/checkout@v3
-
-        - name: get archive
-          uses: actions/download-artifact@v3
-          with:
-            name: verademo.war
-        - name: pipeline-scan action step
-          id: pipeline-scan
-          uses: veracode/Veracode-pipeline-scan-action@pipeline-scan-beta-v0.0.4
-          with:
-            vid: ${{ secrets.VID }}
-            vkey: ${{ secrets.VKEY }}
-            file: "verademo.war" 
-            fail_build: false
+          vid: ${{ secrets.VID }}
+          vkey: ${{ secrets.VKEY }}
+          file: "app/target/verademo.war" 
+          fail_build: false
 
 # This step will import the flaws from the step above
   import-issues:
-    needs: pipeline_scan
+    needs: build-scan
     runs-on: ubuntu-latest
     steps:
       - name: get scan results
