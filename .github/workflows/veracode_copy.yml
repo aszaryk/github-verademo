@@ -54,6 +54,6 @@ jobs:
           name: filtered-results
 
       - name: import flaws as issues
-        uses: veracode/veracode-flaws-to-issues@v2.1.0
+        uses: veracode/veracode-flaws-to-issues@v2.1.10
         with:
           scan-results-json: 'filtered_results.json'
