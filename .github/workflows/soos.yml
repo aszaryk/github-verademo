@@ -1,4 +1,4 @@
-name: SOOS Analysis
+name: Soos Analysis
 on: [push]
 
 jobs:
