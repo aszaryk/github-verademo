@@ -1,5 +1,5 @@
 name: Soos Analysis
-on: [push]
+on: workflow_dispatch
 
 jobs:
   synchronous-analysis-with-blocking-result:
