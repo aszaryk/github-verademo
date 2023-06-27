@@ -15,7 +15,7 @@ from urllib.parse import urlparse
 #GitHub:
 api_id = '${{ secrets.VERACODE_API_ID }}'
 api_secret = '${{ secrets.VERACODE_API_KEY }}'
-dynamic_job = ${{ github.repository }} #Dynamic Job name will be same as GitHub project name
+dynamic_job = '${{ github.repository }}' #Dynamic Job name will be same as GitHub project name
 
 
 def veracode_hmac(host, url, method):
