@@ -17,3 +17,5 @@ jobs:
       - name: List files in the repository
         run: |
           python -V
+          pip install -r vera-scripts/requirements.txt
+          python vera-scripts/create-da-scan.py
