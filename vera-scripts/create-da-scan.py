@@ -17,26 +17,6 @@ from veracode_api_py.dynamic import Analyses, Scans, ScanCapacitySummary, ScanOc
 def main():
 
     #Payload for creating and scheduling new DA job
-    data =   {
-      "name": dynamic_job,
-      "scans": [
-        {
-          "scan_config_request": {
-            "target_url": {
-              "url": "http://my.verademo.site"
-            }
-          }
-        }
-      ],
-      "schedule": {
-        "now": True,
-        "duration": {
-          "length": 1,
-          "unit": "DAY"
-        }
-      }
-    }
-
 
     url = DynUtils().setup_url('http://my.verademo.site','DIRECTORY_AND_SUBDIRECTORY',False)
 
@@ -57,6 +37,8 @@ def main():
     scan = DynUtils().setup_scan(scan_config_request,scan_contact_info)
 
     print(scan)
+
+    #Send configuration to Veracode and initiate Scan
 
     analysis = Analyses().create('My API Analysis 4',scans=[scan],owner='Andrzej',email='andrzej@example.com')
 
