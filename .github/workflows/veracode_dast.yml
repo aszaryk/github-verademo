@@ -4,7 +4,11 @@ on: workflow_dispatch
 jobs:
   static_analysis:
     name: Veracode Dynamic Analysis
+    env:
+      API_ID: ${{ secrets.VERACODE_API_ID }}
+      API_KEY: ${{ secrets.VERACODE_API_KEY }}
     runs-on: ubuntu-latest
+
     
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
