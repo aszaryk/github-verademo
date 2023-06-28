@@ -29,13 +29,15 @@ def main():
 
     scan = DynUtils().setup_scan(scan_config_request,scan_contact_info)
 
-    print("TargetURL Scan Settings: " + scan)
+    print("TargetURL Scan Settings: ")
+    print(scan)
 
     #Send configuration to Veracode and initiate Scan
 
     analysis = Analyses().create('My API Analysis 4',scans=[scan],schedule_frequency='NOW',owner='Andrzej',email='andrzej@example.com')
 
-    print("Analysis Settings: " + analysis)
+    print("Analysis Settings: ")
+    print(analysis)
 
 
 if __name__ == "__main__":
