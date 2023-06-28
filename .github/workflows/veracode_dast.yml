@@ -5,8 +5,8 @@ jobs:
   static_analysis:
     name: Veracode Dynamic Analysis
     env:
-      API_ID: ${{ secrets.VERACODE_API_ID }}
-      API_KEY: ${{ secrets.VERACODE_API_KEY }}
+      VERACODE_API_KEY_ID: ${{ secrets.VERACODE_API_ID }}
+      VERACODE_API_KEY_SECRET: ${{ secrets.VERACODE_API_KEY }}
     runs-on: ubuntu-latest
 
     
