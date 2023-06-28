@@ -45,6 +45,9 @@ def main():
         }
       }
     }
+
+    analysis = Analyses().get_by_name(none, "Webgoat")
+    print("Analysis Found: " + analysis)
 """
     url = DynUtils().setup_url('http://www.example.com','DIRECTORY_AND_SUBDIRECTORY',False)
 
