@@ -34,7 +34,7 @@ def main():
 
     #Send configuration to Veracode and initiate Scan
 
-    analysis = Analyses().create('My API Analysis 4',scans=[scan],schedule_frequency='NOW',owner='Andrzej',email='andrzej@example.com')
+    analysis = Analyses().create('My API Analysis 4',scans=[scan],owner='Andrzej',email='andrzej@example.com')
 
     print("Analysis Settings: ")
     print(analysis)
