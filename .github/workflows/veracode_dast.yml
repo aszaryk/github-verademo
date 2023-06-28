@@ -20,6 +20,6 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: Initiate Veracode Dynamic Analysis
         run: |
-          python -V
-          pip install -r vera-scripts/requirements.txt
+          pip install -r vera-scripts/requirements.txt -q
+          echo "Completed Installing Required Dependencies"
           python vera-scripts/create-da-scan.py

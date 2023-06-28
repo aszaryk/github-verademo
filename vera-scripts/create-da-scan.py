@@ -1,17 +1,10 @@
 #!/usr/bin/env python3
 import os
-#import time
-#import hmac
-#import codecs
 import json  
-import sys                                                              
-#from hashlib import sha256
+import sys
 import requests
 from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
 from veracode_api_py.dynamic import Analyses, Scans, ScanCapacitySummary, ScanOccurrences, ScannerVariables, DynUtils, Occurrences
-
-#from requests.adapters import HTTPAdapter
-#from urllib.parse import urlparse
 
 
 def main():
@@ -36,13 +29,14 @@ def main():
 
     scan = DynUtils().setup_scan(scan_config_request,scan_contact_info)
 
-    print(scan)
+    print("TargetURL Scan Settings: " + scan)
 
     #Send configuration to Veracode and initiate Scan
 
-    analysis = Analyses().create('My API Analysis 4',scans=[scan],owner='Andrzej',email='andrzej@example.com')
+    analysis = Analyses().create('My API Analysis 4',scans=[scan],schedule_frequency='NOW',owner='Andrzej',email='andrzej@example.com')
 
-    print(analysis)
+    print("Analysis Settings: " + analysis)
+
 
 if __name__ == "__main__":
     main()
