@@ -22,6 +22,9 @@ def main():
     api_secret = '${{ secrets.VERACODE_API_KEY }}'
     dynamic_job =  'GitHub Test Scan'    #'${{ github.repository }}' #Dynamic Job name will be same as GitHub project name
 
+    print(api_id)
+
+
     #Payload for creating and scheduling new DA job
     data =   {
       "name": dynamic_job,
