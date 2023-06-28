@@ -22,7 +22,7 @@ def main():
     VERACODE_API_KEY_SECRET = os.environ.get('API_KEY')
     dynamic_job =  'GitHub Test Scan'    #'${{ github.repository }}' #Dynamic Job name will be same as GitHub project name
 
-    print("The API ID is (hidden): " + api_id)
+    print("The API ID is (hidden): " + VERACODE_API_KEY_ID)
 
 
     #Payload for creating and scheduling new DA job
