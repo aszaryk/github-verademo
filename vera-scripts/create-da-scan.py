@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#import os
+import os
 #import time
 #import hmac
 #import codecs
@@ -18,8 +18,8 @@ def main():
     #Setup variables according to environment
 
     #GitHub:
-    api_id = os.environ['API_ID']
-    api_key = os.environ['API_KEY']
+    api_id = os.environ.get('API_ID')
+    api_key = os.environ.get('API_KEY')
     dynamic_job =  'GitHub Test Scan'    #'${{ github.repository }}' #Dynamic Job name will be same as GitHub project name
 
     print(api_id)
