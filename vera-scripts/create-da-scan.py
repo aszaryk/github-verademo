@@ -22,7 +22,7 @@ def main():
     api_key = os.environ.get('API_KEY')
     dynamic_job =  'GitHub Test Scan'    #'${{ github.repository }}' #Dynamic Job name will be same as GitHub project name
 
-    print(api_id)
+    print("The API ID is (hidden): " + api_id)
 
 
     #Payload for creating and scheduling new DA job
