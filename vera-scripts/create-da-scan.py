@@ -15,15 +15,6 @@ from veracode_api_py.dynamic import Analyses, Scans, ScanCapacitySummary, ScanOc
 
 
 def main():
-    #Setup variables according to environment
-
-    #GitHub:
-    #VERACODE_API_KEY_ID = os.environ.get('API_ID')
-    #VERACODE_API_KEY_SECRET = os.environ.get('API_KEY')
-    dynamic_job =  'GitHub Test Scan'    #'${{ github.repository }}' #Dynamic Job name will be same as GitHub project name
-
-    #print("The API ID is (hidden): " + VERACODE_API_KEY_ID)
-
 
     #Payload for creating and scheduling new DA job
     data =   {
@@ -46,10 +37,8 @@ def main():
       }
     }
 
-    analysis = Analyses().get_by_name("Webgoat")
-    print("Analysis Found: " + analysis)
-"""
-    url = DynUtils().setup_url('http://www.example.com','DIRECTORY_AND_SUBDIRECTORY',False)
+
+    url = DynUtils().setup_url('http://my.verademo.site','DIRECTORY_AND_SUBDIRECTORY',False)
 
     allowed_hosts = [url]
 
@@ -63,16 +52,15 @@ def main():
 
     scan_config_request = DynUtils().setup_scan_config_request(url, allowed_hosts,auth_config, crawl_config, scan_setting)
 
-    scan_contact_info = DynUtils().setup_scan_contact_info('tjarrett@example.com','Alan Smithee','800-555-1212')
+    scan_contact_info = DynUtils().setup_scan_contact_info('andrzej@example.com','Alan Smithee','800-555-1212')
 
     scan = DynUtils().setup_scan(scan_config_request,scan_contact_info)
 
     print(scan)
 
-    analysis = Analyses().create('My API Analysis 4',scans=[scan],owner='Tim Jarrett',email='tjarrett@example.com')
+    analysis = Analyses().create('My API Analysis 4',scans=[scan],owner='Andrzej',email='andrzej@example.com')
 
     print(analysis)
-"""
 
 if __name__ == "__main__":
     main()
