@@ -45,7 +45,7 @@ def main():
         }
       }
     }
-
+"""
     url = DynUtils().setup_url('http://www.example.com','DIRECTORY_AND_SUBDIRECTORY',False)
 
     allowed_hosts = [url]
@@ -69,6 +69,7 @@ def main():
     analysis = Analyses().create('My API Analysis 4',scans=[scan],owner='Tim Jarrett',email='tjarrett@example.com')
 
     print(analysis)
+"""
 
 if __name__ == "__main__":
     main()
