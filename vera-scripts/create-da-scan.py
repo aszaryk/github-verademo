@@ -18,8 +18,8 @@ def main():
     #Setup variables according to environment
 
     #GitHub:
-    api_id = os.environ.get('API_ID')
-    api_key = os.environ.get('API_KEY')
+    VERACODE_API_KEY_ID = os.environ.get('API_ID')
+    VERACODE_API_KEY_SECRET = os.environ.get('API_KEY')
     dynamic_job =  'GitHub Test Scan'    #'${{ github.repository }}' #Dynamic Job name will be same as GitHub project name
 
     print("The API ID is (hidden): " + api_id)
