@@ -6,6 +6,7 @@ import requests
 from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
 from veracode_api_py.dynamic import Analyses, Scans, ScanCapacitySummary, ScanOccurrences, ScannerVariables, DynUtils, Occurrences
 
+analysis_name = os.environ.get("JOB_NAME")
 
 def main():
 
@@ -34,7 +35,7 @@ def main():
 
     #Send configuration to Veracode and initiate Scan
 
-    analysis = Analyses().create('My API Analysis 4',scans=[scan],owner='Andrzej',email='andrzej@example.com')
+    analysis = Analyses().create(analysis_name,scans=[scan],owner='Andrzej',email='andrzej@example.com')
 
     print("Analysis Settings: ")
     print(analysis)
