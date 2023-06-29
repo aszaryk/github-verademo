@@ -7,7 +7,7 @@ from veracode_api_signing.plugin_requests import RequestsAuthPluginVeracodeHMAC
 from veracode_api_py.dynamic import Analyses, Scans, ScanCapacitySummary, ScanOccurrences, ScannerVariables, DynUtils, Occurrences
 
 #name of Dynamic Analysis will be the same as the name of the Github repository:
-analysis_name = os.environ.get("JOB_NAME") + " - " + os.environ.get("JOB_ID")
+analysis_name = "Project: " + os.environ.get("JOB_NAME") + " - Workflow Number: " + os.environ.get("JOB_ID")
 
 def main():
 
