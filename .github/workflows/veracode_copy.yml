@@ -43,3 +43,18 @@ jobs:
         uses: veracode/veracode-flaws-to-issues@v2.1.10
         with:
           scan-results-json: 'results.json'
+
+# This step will use the Veracode SCA action
+  veracode-sca-task:
+    runs-on: ubuntu-latest
+    name: Scan remote repository for Issues
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run Veracode SCA
+        uses: veracode/veracode-sca@WorkspaceAutomation
+        with:
+          workspace_automation: true
+          VID: '${{ secrets.VERACODE_API_ID }}'
+          VKEY: '${{ secrets.VERACODE_API_KEY }}'
