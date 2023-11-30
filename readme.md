@@ -1,4 +1,4 @@
-# VeraDemo - Blab-a-Gag
+# VeraDemo - Blab-a-Gag - With Veracode GitHub App Installed and Running
 
 ## About
 
