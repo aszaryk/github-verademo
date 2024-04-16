@@ -1,0 +1,25 @@
+name: Veracode Dynamic Analysis
+on: workflow_dispatch
+    
+jobs:
+  dynamic_analysis:
+    name: Veracode Dynamic Analysis
+    env:
+      VERACODE_API_KEY_ID: ${{ secrets.VERACODE_API_ID }}
+      VERACODE_API_KEY_SECRET: ${{ secrets.VERACODE_API_KEY }}
+      JOB_NAME: ${{ github.repository }}
+      JOB_ID: ${{ github.run_number }}
+    runs-on: ubuntu-latest
+
+    
+    steps:
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - name: Initiate Veracode Dynamic Analysis
+        run: |
+          echo "Running silent...  Installing Required Dependencies"
+          pip install -r vera-scripts/requirements.txt -q
+          echo "Completed Installing Required Dependencies"
+          python vera-scripts/create-da-scan.py
