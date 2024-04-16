@@ -1,4 +1,4 @@
-name: Veracode Dynamic Analysis
+name: Veracode Dynamic Analysis Start Scan
 on: workflow_dispatch
     
 jobs:
