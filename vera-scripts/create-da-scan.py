@@ -27,8 +27,6 @@ def main():
 
     scan_config_request = DynUtils().setup_scan_config_request(url, allowed_hosts,auth_config, crawl_config, scan_setting)
 
-    #scan_contact_info = DynUtils().setup_scan_contact_info('andrzej@example.com','Alan Smithee','800-555-1212')
-
     scan = DynUtils().setup_scan(scan_config_request)
 
     start_scan = DynUtils().start_scan(12, "HOUR")
@@ -39,9 +37,6 @@ def main():
     #Send configuration to Veracode and initiate Scan
 
     analysis = Analyses().create(analysis_name,scans=[scan],owner='Andrzej',email='andrzej@example.com', start_scan=start_scan)
-
-    print("Analysis Settings: ")
-    print(analysis)
 
 
 if __name__ == "__main__":
