@@ -1,9 +1,9 @@
-# VeraDemo - Blab-a-Gag
+# VeraDemo - Blab-a-Gag - With Veracode GitHub App Installed and Running
 
-## About
+## About This
 
 Blab-a-Gag is a fairly simple forum type application which allows:
- - users to post a one-liner joke
+ - users to post a one-line joke or...two
  - users to follow the jokes of other users or not (listen or ignore)
  - users to comment on other users messages (heckle)
  
