@@ -1,6 +1,6 @@
 # VeraDemo - Blab-a-Gag - With Veracode GitHub App Installed and Running
 
-## About This
+## About This App
 
 Blab-a-Gag is a fairly simple forum type application which allows:
  - users to post a one-line joke or...two
